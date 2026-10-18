@@ -125,40 +125,12 @@ html.a11y-vision body { letter-spacing: 0.02em; }
 .word-in { animation: word-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0s); }
 .fade-up { animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0s); }
 
-/* Hero-иллюстрация: цикл «пустое место → имплант → коронка» */
-@keyframes impl-drop {
-  0%, 12% { transform: translateY(130px); opacity: 0; }
-  26% { opacity: 1; }
-  46%, 100% { transform: translateY(0); opacity: 1; }
-}
-@keyframes impl-spin {
-  0%, 12% { transform: rotate(-8deg); }
-  44%, 100% { transform: rotate(0); }
-}
-@keyframes crown-in {
-  0%, 52% { transform: translateY(16px) scale(0.92); opacity: 0; }
-  68%, 94% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(16px) scale(0.92); opacity: 0; }
-}
-@keyframes glow-pulse {
-  0%, 60% { opacity: 0; }
-  72% { opacity: 1; }
-  100% { opacity: 0; }
-}
-@keyframes impl-fade {
-  0%, 94% { opacity: 1; }
-  100% { opacity: 0; }
-}
-.jaw-impl { animation: impl-drop 9s cubic-bezier(0.22, 1, 0.36, 1) infinite, impl-fade 9s linear infinite; transform-box: fill-box; transform-origin: center; }
-.jaw-crown { animation: crown-in 9s cubic-bezier(0.22, 1, 0.36, 1) infinite; transform-box: fill-box; transform-origin: center; }
-.jaw-glow { animation: glow-pulse 9s ease-out infinite; }
-@keyframes scan-sweep {
-  0% { transform: translateX(0); opacity: 0; }
-  8% { opacity: 1; }
-  45% { transform: translateX(860px); opacity: 1; }
-  52%, 100% { transform: translateX(860px); opacity: 0; }
-}
-.jaw-scan { animation: scan-sweep 9s ease-in-out infinite; }
+/* Hero-арка: линия-улыбка и блёстки */
+@keyframes smile-draw { from { stroke-dashoffset: 1; opacity: 0; } 15% { opacity: 1; } to { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes smile-breathe { 0%, 100% { opacity: 1; } 50% { opacity: 0.65; } }
+.hero-smile { stroke-dasharray: 1; stroke-dashoffset: 0; animation: smile-draw 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both, smile-breathe 5s ease-in-out 2.4s infinite; }
+.hero-twinkle { animation: sparkle 3.6s ease-in-out infinite; }
+@keyframes sparkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -167,7 +139,5 @@ html.a11y-vision body { letter-spacing: 0.02em; }
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .jaw-impl, .jaw-crown { opacity: 1 !important; transform: none !important; }
-  .jaw-scan { display: none; }
   .marquee-track { animation: none !important; }
 }

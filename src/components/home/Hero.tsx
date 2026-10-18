@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
-import { JawHero } from "@/components/art/JawHero";
+import { HeroArch } from "@/components/art/HeroArch";
 import { SplitText } from "@/components/ui/SplitText";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { ButtonLink } from "@/components/ui/Button";
@@ -50,24 +50,10 @@ export function Hero() {
           </div>
         </motion.div>
 
-        <motion.div style={{ y }} className="relative mx-auto aspect-[740/420] w-full max-w-[780px]"><div style={{ "--d": "0.2s" } as React.CSSProperties} className="fade-up h-full w-full">
-          <JawHero className="h-full w-full" />
-        </div></motion.div>
+        <motion.div style={{ y }} className="relative px-6 sm:px-12 lg:px-10"><div style={{ "--d": "0.2s" } as React.CSSProperties} className="fade-up"><HeroArch /></div></motion.div>
       </motion.div>
 
-      <div className="container-x relative z-10 grid gap-3 pb-24 sm:grid-cols-3 md:pb-10">
-        {[
-          { k: "21 год", v: "практики ведущего врача" },
-          { k: `${site.ratings[0].value} из 5`, v: "рейтинг клиники на Яндексе" },
-          { k: "КТ + консультация", v: "терапевта бесплатно по акции*" },
-        ].map((f, i) => (
-          <div key={f.k} style={{ "--d": `${0.8 + i * 0.1}s` } as React.CSSProperties} className="glass fade-up rounded-3xl px-6 py-4">
-            <p className="display text-3xl text-gold">{f.k}</p>
-            <p className="mt-1 text-xs text-paper/65">{f.v}</p>
-          </div>
-        ))}
-        <p className="text-[11px] text-paper/70 sm:col-span-3">*при прохождении первичной гигиены полости рта. Имеются противопоказания, необходима консультация специалиста.</p>
-      </div>
+      <div className="container-x relative z-10 pb-24 md:pb-10"><p className="text-[11px] text-paper/70">*при прохождении первичной гигиены полости рта. Имеются противопоказания, необходима консультация специалиста.</p></div>
       <a href="#story" aria-label="Листайте вниз" className="absolute bottom-6 right-6 hidden size-12 animate-float place-items-center rounded-full border border-paper/25 text-gold lg:grid"><ArrowDown size={18} /></a>
     </section>
   );
