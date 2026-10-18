@@ -11,10 +11,12 @@ interface SplitTextProps {
   as?: "h1" | "h2" | "h3" | "p" | "span";
   /** слова, которые рисуются курсивом display-шрифта и золотом */
   accent?: string[];
+  /** анимация на чистом CSS при загрузке (для заголовков первого экрана) */
+  immediate?: boolean;
 }
 
 /** Построчно-пословное появление из-под маски. Контент в DOM всегда есть (SEO/reduced-motion). */
-export function SplitText({ text, className = "", delay = 0, as = "h2", accent = [] }: SplitTextProps) {
+export function SplitText({ text, className = "", delay = 0, as = "h2", accent = [], immediate = false }: SplitTextProps) {
   const reduce = useReduce();
   const Tag = motion[as] as typeof motion.h2;
   const words = text.split(" ");
@@ -33,6 +35,24 @@ export function SplitText({ text, className = "", delay = 0, as = "h2", accent =
       </span>
     );
   });
+  if (immediate) {
+    const Plain = as;
+    return (
+      <Plain className={className} aria-label={text}>
+        <span aria-hidden>
+          {words.map((w, i) => {
+            const isAccent = accent.includes(w) || accent.includes(w.replace(/[.,!?]/g, ""));
+            return (
+              <span key={i} className="inline-block overflow-hidden pb-[0.12em] align-bottom">
+                <span className={`word-in inline-block ${isAccent ? "italic text-gold" : ""}`} style={{ "--d": `${delay + i * 0.06}s` } as React.CSSProperties}>{w}</span>
+                {i < words.length - 1 && "\u00a0"}
+              </span>
+            );
+          })}
+        </span>
+      </Plain>
+    );
+  }
   return (
     <Tag
       className={className}

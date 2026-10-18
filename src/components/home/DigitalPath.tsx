@@ -9,7 +9,7 @@ import { processSteps } from "@/lib/content";
 function Card({ s, i }: { s: (typeof processSteps)[number]; i: number }) {
   return (
     <article className="relative flex h-[min(30rem,62svh)] w-[82vw] shrink-0 flex-col justify-between overflow-hidden rounded-[32px] border border-paper/15 bg-forest p-7 sm:w-[28rem] sm:p-9">
-      <span aria-hidden className="display pointer-events-none absolute -right-2 -top-6 select-none text-[11rem] italic leading-none text-gold/15">{s.tag}</span>
+      <span aria-hidden className="display pointer-events-none absolute -right-2 -top-6 select-none text-[11rem] italic leading-none text-transparent [-webkit-text-stroke:1px_rgba(201,164,92,0.35)]">{s.tag}</span>
       <span className="eyebrow relative">Этап {s.tag}</span>
       <div className="relative grid gap-4">
         <h3 className="display text-4xl sm:text-5xl">{s.title}</h3>

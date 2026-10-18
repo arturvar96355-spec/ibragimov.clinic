@@ -96,9 +96,10 @@ html.a11y-vision body { letter-spacing: 0.02em; }
     pointer-events: none;
     position: absolute;
     inset: 0;
-    opacity: 0.09;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.5;
+    background-image: url("/noise.png");
+    background-size: 128px 128px;
+    @media (max-width: 767px) { display: none; }
   }
 }
 
@@ -112,6 +113,12 @@ html.a11y-vision body { letter-spacing: 0.02em; }
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
 }
+
+/* Появление при загрузке на чистом CSS: видимо до гидрации, не задерживает LCP */
+@keyframes word-in { from { transform: translateY(110%); } to { transform: none; } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+.word-in { animation: word-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0s); }
+.fade-up { animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0s); }
 
 /* Hero-иллюстрация: цикл «пустое место → имплант → коронка» */
 @keyframes impl-drop {
@@ -140,6 +147,13 @@ html.a11y-vision body { letter-spacing: 0.02em; }
 .jaw-impl { animation: impl-drop 9s cubic-bezier(0.22, 1, 0.36, 1) infinite, impl-fade 9s linear infinite; transform-box: fill-box; transform-origin: center; }
 .jaw-crown { animation: crown-in 9s cubic-bezier(0.22, 1, 0.36, 1) infinite; transform-box: fill-box; transform-origin: center; }
 .jaw-glow { animation: glow-pulse 9s ease-out infinite; }
+@keyframes scan-sweep {
+  0% { transform: translateX(0); opacity: 0; }
+  8% { opacity: 1; }
+  45% { transform: translateX(860px); opacity: 1; }
+  52%, 100% { transform: translateX(860px); opacity: 0; }
+}
+.jaw-scan { animation: scan-sweep 9s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -149,5 +163,6 @@ html.a11y-vision body { letter-spacing: 0.02em; }
     transition-duration: 0.01ms !important;
   }
   .jaw-impl, .jaw-crown { opacity: 1 !important; transform: none !important; }
+  .jaw-scan { display: none; }
   .marquee-track { animation: none !important; }
 }

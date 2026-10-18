@@ -14,8 +14,8 @@ export function ServicesIndex() {
             const kids = childrenOf(s.slug);
             const dark = i % 4 === 0 || i % 4 === 3;
             return (
-              <Reveal key={s.slug} delay={(i % 3) * 0.07}>
-                <li className="h-full list-none">
+              <li key={s.slug} className="h-full list-none">
+                <Reveal delay={(i % 3) * 0.07} className="h-full">
                   <article className={`group relative flex h-full min-h-[22rem] flex-col justify-between gap-8 overflow-hidden rounded-[32px] p-7 transition duration-500 hover:-translate-y-1 ${dark ? "bg-night text-paper" : "border border-line bg-white"}`}>
                     <div aria-hidden className="absolute -right-12 -top-12 size-52 rounded-full bg-gold/15 blur-2xl transition duration-500 group-hover:scale-150" />
                     <div className="relative flex items-start justify-between">
@@ -29,8 +29,8 @@ export function ServicesIndex() {
                       {min && <p className="text-sm font-bold text-gold">{formatPrice(min)}</p>}
                     </div>
                   </article>
-                </li>
-              </Reveal>
+                </Reveal>
+              </li>
             );
           })}
         </ul>

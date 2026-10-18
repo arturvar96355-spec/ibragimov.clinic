@@ -24,7 +24,7 @@ export function PageHero({ crumbs, eyebrow, title, accent, lead, children, aside
         <div className={`mt-10 grid gap-10 ${aside ? "lg:grid-cols-[1.3fr_1fr] lg:items-end" : ""}`}>
           <div className="grid gap-6">
             {eyebrow && <p className="eyebrow flex items-center gap-3"><span className="h-px w-10 bg-gold" />{eyebrow}</p>}
-            <SplitText as="h1" text={title} accent={accent} className="display display-xl !text-[clamp(2.8rem,7.5vw,6.5rem)] !leading-[0.95]" />
+            <SplitText as="h1" immediate text={title} accent={accent} className="display display-xl !text-[clamp(2.8rem,7.5vw,6.5rem)] !leading-[0.95]" />
             {lead && <div className="max-w-2xl text-base leading-relaxed text-paper/75 sm:text-lg">{lead}</div>}
             {children && <div className="flex flex-wrap items-center gap-3 pt-2">{children}</div>}
           </div>
