@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useReduce } from "@/lib/useReduce";
 import { useRef } from "react";
 
 export function Timeline({ items }: { items: string[] }) {
   const ref = useRef<HTMLOListElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 60%"] });
   const h = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   return (

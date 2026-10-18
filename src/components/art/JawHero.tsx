@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { useReduce } from "@/lib/useReduce";
 
 /* Фронтальная «улыбка»: зубы висят на дуге, на одном месте цикл: пустота → имплант → коронка. */
 const WIDTHS = [64, 52, 54, 46, 46, 56];
@@ -31,7 +32,7 @@ const toothPath = (w: number, h: number) =>
   `M ${-w / 2} 0 C ${-w / 2 - 2} ${h * 0.62}, ${-w * 0.34} ${h}, 0 ${h} S ${w / 2 + 2} ${h * 0.62}, ${w / 2} 0 Z`;
 
 export function JawHero({ className = "" }: { className?: string }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const rx = useSpring(useTransform(my, [-1, 1], [5, -5]), { stiffness: 80, damping: 18 });

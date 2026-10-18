@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useReduce } from "@/lib/useReduce";
 import { useEffect, useRef, useState } from "react";
 import { SplitText } from "@/components/ui/SplitText";
 import { processSteps } from "@/lib/content";
@@ -21,7 +22,7 @@ function Card({ s, i }: { s: (typeof processSteps)[number]; i: number }) {
 }
 
 export function DigitalPath() {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const ref = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const [dist, setDist] = useState(0);

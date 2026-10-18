@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+import { useReduce } from "@/lib/useReduce";
 import type { ReactNode } from "react";
 
 interface SplitTextProps {
@@ -14,7 +15,7 @@ interface SplitTextProps {
 
 /** Построчно-пословное появление из-под маски. Контент в DOM всегда есть (SEO/reduced-motion). */
 export function SplitText({ text, className = "", delay = 0, as = "h2", accent = [] }: SplitTextProps) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const Tag = motion[as] as typeof motion.h2;
   const words = text.split(" ");
   const parts: ReactNode[] = words.map((w, i) => {

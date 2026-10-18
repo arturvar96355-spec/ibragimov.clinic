@@ -1,11 +1,12 @@
 "use client";
 
-import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
+import { motion, useMotionValue, useSpring } from "motion/react";
+import { useReduce } from "@/lib/useReduce";
 import type { ReactNode } from "react";
 
 /** Элемент слегка тянется за курсором (только устройства с мышью). */
 export function Magnetic({ children, strength = 0.25, className }: { children: ReactNode; strength?: number; className?: string }) {
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 220, damping: 18 });

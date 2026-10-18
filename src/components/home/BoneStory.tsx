@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
+import { motion, useMotionValue, useScroll, useTransform, type MotionValue } from "motion/react";
+import { useReduce } from "@/lib/useReduce";
 import { useRef } from "react";
 import { BoneScene } from "@/components/art/BoneScene";
 import { ButtonLink } from "@/components/ui/Button";
@@ -33,7 +34,7 @@ function StepText({ i, p }: { i: number; p: MotionValue<number> }) {
 
 export function BoneStory() {
   const ref = useRef<HTMLElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = useReduce();
   const fixed = useMotionValue(1);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const bar = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
