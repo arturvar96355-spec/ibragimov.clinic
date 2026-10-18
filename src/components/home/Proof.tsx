@@ -8,7 +8,7 @@ const sourceName = { yandex: "Яндекс", "2gis": "2ГИС", zoon: "Zoon" } a
 
 export function Proof() {
   return (
-    <section className="grain relative overflow-hidden bg-forest text-paper section-y">
+    <section className="grain cv relative overflow-hidden bg-forest text-paper section-y">
       <div className="container-x relative">
         <p className="eyebrow mb-5">Доверие</p>
         <SplitText text="Пациенты оценивают нас на 4,8" accent={["4,8"]} className="display display-lg mb-14 max-w-4xl" />

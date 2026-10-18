@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import { useMotionValue, useSpring, useTransform } from "motion/react";
+import * as m from "motion/react-m";
 import { Star } from "lucide-react";
 import { Media } from "@/components/ui/Media";
 import { site } from "@/lib/content";
@@ -31,7 +32,7 @@ export function HeroArch({ photo, className = "" }: { photo?: Img; className?: s
 
   return (
     <div
-      className={`relative mx-auto aspect-[4/5] w-full max-w-[440px] ${className}`}
+      className={`relative mx-auto aspect-[4/5] w-full max-w-[290px] sm:max-w-[440px] ${className}`}
       onPointerMove={(e) => {
         if (e.pointerType !== "mouse") return;
         const r = e.currentTarget.getBoundingClientRect();
@@ -40,7 +41,7 @@ export function HeroArch({ photo, className = "" }: { photo?: Img; className?: s
       }}
       onPointerLeave={() => { mx.set(0); my.set(0); }}
     >
-      <div aria-hidden className="absolute -inset-[14%] animate-spin-slow rounded-full border border-dashed border-gold/30" />
+      <div aria-hidden className="absolute -inset-[14%] md:animate-spin-slow rounded-full border border-dashed border-gold/30" />
       <div aria-hidden className="absolute -inset-[26%] rounded-full border border-gold/10" />
 
       <div className="absolute inset-0 overflow-hidden rounded-t-full border border-gold/50 bg-gradient-to-b from-pine via-forest to-night shadow-[0_40px_120px_rgba(0,0,0,0.45)]">
@@ -65,27 +66,27 @@ export function HeroArch({ photo, className = "" }: { photo?: Img; className?: s
         </svg>
       </div>
 
-      <motion.div style={reduce ? undefined : { x: ax, y: ay }} className="absolute -left-4 top-[14%] sm:-left-12">
-        <div className="glass animate-float grid gap-1 rounded-3xl bg-night/50 px-5 py-4">
+      <m.div style={reduce ? undefined : { x: ax, y: ay }} className="absolute -left-4 top-[14%] sm:-left-12">
+        <div className="glass md:animate-float grid gap-1 rounded-3xl bg-night/60 px-4 py-3 sm:px-5 sm:py-4">
           <span className="flex text-gold" aria-hidden>{Array.from({ length: 5 }, (_, i) => <Star key={i} size={13} fill="currentColor" />)}</span>
-          <span className="display text-3xl text-paper">{site.ratings[0].value} из 5</span>
+          <span className="display text-2xl text-paper sm:text-3xl">{site.ratings[0].value} из 5</span>
           <span className="text-[11px] text-paper/75">рейтинг на Яндексе</span>
         </div>
-      </motion.div>
+      </m.div>
 
-      <motion.div style={reduce ? undefined : { x: bx, y: by }} className="absolute -right-3 top-[46%] sm:-right-10">
-        <div className="glass grid gap-0.5 rounded-3xl bg-night/50 px-5 py-4 [animation:float_8s_ease-in-out_1.2s_infinite]">
-          <span className="display text-4xl text-gold">21 год</span>
+      <m.div style={reduce ? undefined : { x: bx, y: by }} className="absolute -right-2 top-[48%] sm:-right-10">
+        <div className="glass grid gap-0.5 rounded-3xl bg-night/60 px-4 py-3 sm:px-5 sm:py-4 md:[animation:float_8s_ease-in-out_1.2s_infinite]">
+          <span className="display text-3xl text-gold sm:text-4xl">21 год</span>
           <span className="text-[11px] text-paper/75">практики ведущего врача</span>
         </div>
-      </motion.div>
+      </m.div>
 
-      <motion.div style={reduce ? undefined : { x: ax, y: by }} className="absolute -left-2 bottom-[7%] sm:-left-8">
-        <div className="glass animate-float rounded-3xl bg-night/50 px-5 py-4 [animation-delay:2.4s]">
+      <m.div style={reduce ? undefined : { x: ax, y: by }} className="absolute -left-2 bottom-[7%] max-sm:hidden sm:-left-8">
+        <div className="glass md:animate-float rounded-3xl bg-night/50 px-5 py-4 [animation-delay:2.4s]">
           <span className="display block whitespace-nowrap text-xl text-paper">КТ + консультация</span>
           <span className="text-[11px] text-paper/75">терапевта бесплатно по акции*</span>
         </div>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

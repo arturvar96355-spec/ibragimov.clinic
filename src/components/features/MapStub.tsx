@@ -15,7 +15,7 @@ export function MapStub({ className = "" }: { className?: string }) {
         <circle cx="288" cy="190" r="115" fill="none" stroke="#c9a45c" strokeOpacity="0.18" />
       </svg>
       <div className="absolute left-[48%] top-[47%] -translate-x-1/2 -translate-y-full">
-        <div className="grid size-14 animate-float place-items-center rounded-full bg-gold text-night shadow-glow ring-4 ring-night/60"><MapPin /></div>
+        <div className="grid size-14 md:animate-float place-items-center rounded-full bg-gold text-night shadow-glow ring-4 ring-night/60"><MapPin /></div>
       </div>
       <div className="glass absolute inset-x-4 bottom-4 rounded-3xl p-4 text-sm text-paper">
         <b>{site.address}</b>, Москва<br />

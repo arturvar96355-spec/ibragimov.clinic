@@ -16,7 +16,7 @@ const tiles = [
 
 export function PriceTiles() {
   return (
-    <section className="section-y bg-ivory">
+    <section className="section-y cv bg-ivory">
       <div className="container-x">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
           <div>

@@ -15,7 +15,7 @@ interface PageHeroProps {
 export function PageHero({ crumbs, eyebrow, title, accent, lead, children, aside }: PageHeroProps) {
   return (
     <section className="grain relative isolate overflow-hidden bg-night text-paper">
-      <div aria-hidden className="absolute -right-32 -top-20 -z-10 size-[36rem] rounded-full bg-brand/40 blur-[120px]" />
+      <div aria-hidden className="absolute -right-32 -top-20 -z-10 size-[36rem] rounded-full bg-[radial-gradient(closest-side,rgba(29,104,93,0.64),transparent)]" />
       <svg aria-hidden className="absolute inset-x-0 bottom-0 -z-10 h-48 w-full opacity-30" viewBox="0 0 1440 200" preserveAspectRatio="none" fill="none">
         {[0, 1, 2].map((i) => <path key={i} d={`M-40 ${120 + i * 22} C 300 ${40 + i * 24}, 700 ${180 + i * 6}, 1000 ${100 + i * 18} S 1350 ${60 + i * 16}, 1500 ${110 + i * 20}`} stroke="#c9a45c" strokeOpacity={0.55 - i * 0.12} />)}
       </svg>

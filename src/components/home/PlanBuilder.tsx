@@ -45,8 +45,8 @@ export function PlanBuilder() {
   const toggle = (id: number) => setSelected((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]));
 
   return (
-    <section className="grain relative overflow-hidden bg-night text-paper section-y">
-      <div aria-hidden className="absolute -right-40 top-0 size-[40rem] rounded-full bg-brand/30 blur-[140px]" />
+    <section className="grain cv relative overflow-hidden bg-night text-paper section-y">
+      <div aria-hidden className="absolute -right-40 top-0 size-[40rem] rounded-full bg-[radial-gradient(closest-side,rgba(29,104,93,0.48),transparent)]" />
       <div className="container-x relative">
         <p className="eyebrow mb-5">Конструктор плана</p>
         <SplitText text="Соберите план лечения за минуту" accent={["минуту"]} className="display display-lg mb-12 max-w-4xl" />

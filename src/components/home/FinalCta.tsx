@@ -7,8 +7,8 @@ import { site } from "@/lib/content";
 
 export function FinalCta({ context }: { context?: string }) {
   return (
-    <section id="contacts" className="grain relative overflow-hidden bg-night text-paper section-y">
-      <div aria-hidden className="absolute -left-40 -top-40 size-[44rem] rounded-full bg-brand/40 blur-[140px]" />
+    <section id="contacts" className="grain cv relative overflow-hidden bg-night text-paper section-y">
+      <div aria-hidden className="absolute -left-40 -top-40 size-[44rem] rounded-full bg-[radial-gradient(closest-side,rgba(29,104,93,0.64),transparent)]" />
       <div className="container-x relative">
         <p className="eyebrow mb-5">Запись на консультацию</p>
         <SplitText text="Первый шаг к улыбке — одна заявка" accent={["улыбке"]} className="display display-lg mb-14 max-w-5xl" />
@@ -29,7 +29,7 @@ export function FinalCta({ context }: { context?: string }) {
               <a href={site.social.whatsapp} className="glass flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold transition hover:bg-gold hover:text-night"><MessageCircle size={16} />WhatsApp</a>
             </div>
           </Reveal>
-          <Reveal delay={0.1}><MapStub className="min-h-[24rem] lg:h-full" /></Reveal>
+          <Reveal delay={0.1}><MapStub className="min-h-[16rem] sm:min-h-[24rem] lg:h-full" /></Reveal>
         </div>
       </div>
     </section>

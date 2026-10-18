@@ -6,6 +6,7 @@ import { Header } from "@/components/layouts/Header";
 import { Footer } from "@/components/layouts/Footer";
 import { MobileDock } from "@/components/layouts/MobileDock";
 import { ScrollProgress } from "@/components/layouts/ScrollProgress";
+import { MotionProvider } from "@/components/layouts/MotionProvider";
 
 const cormorant = localFont({
   src: [
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru" className={`${montserrat.variable} ${cormorant.variable}`}>
       <body>
+        <MotionProvider>
         <BookingProvider>
           <ScrollProgress />
           <Header />
@@ -45,6 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <MobileDock />
         </BookingProvider>
+        </MotionProvider>
       </body>
     </html>
   );

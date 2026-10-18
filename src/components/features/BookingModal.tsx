@@ -38,7 +38,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
         aria-labelledby="booking-title"
         onClose={close}
         onClick={(e) => e.target === ref.current && close()}
-        className="m-auto w-[calc(100%-32px)] max-w-md rounded-[32px] bg-paper p-0 shadow-soft backdrop:bg-night/80 backdrop:backdrop-blur-md"
+        className="m-auto w-[calc(100%-32px)] max-w-md rounded-[32px] bg-paper p-0 shadow-soft backdrop:bg-night/80 md:backdrop:backdrop-blur-md"
       >
         {state.open && (
           <div className="relative p-7 sm:p-9">

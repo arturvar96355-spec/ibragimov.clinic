@@ -78,7 +78,7 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
             {s.blocks?.filter((b) => b.type === "qualities" || b.type === "rich-text").map((b) => (
               <Reveal key={b.title}>
                 <div className="grain relative overflow-hidden rounded-[32px] bg-night p-7 text-paper sm:p-10">
-                  <div aria-hidden className="absolute -right-10 -top-10 size-48 rounded-full bg-gold/20 blur-3xl" />
+                  <div aria-hidden className="absolute -right-10 -top-10 size-48 rounded-full bg-[radial-gradient(closest-side,rgba(201,164,92,0.32),transparent)]" />
                   <p className="eyebrow mb-3">Особенность</p>
                   <h3 className="display display-md mb-4">{b.title}</h3>
                   <div className="grid max-w-2xl gap-3 leading-relaxed text-paper/80">{b.paragraphs?.map((p) => <p key={p}>{p.replace(/\*\*/g, "")}</p>)}</div>

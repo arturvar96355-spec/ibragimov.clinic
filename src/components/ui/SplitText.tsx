@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { Fragment, type CSSProperties } from "react";
 import { useReduce } from "@/lib/useReduce";
 
@@ -20,7 +20,7 @@ const WORD = "inline-block overflow-hidden pb-[0.12em] align-bottom";
 /** Пословное появление из-под маски. Контент в DOM всегда есть (SEO/reduced-motion). */
 export function SplitText({ text, className = "", delay = 0, as = "h2", accent = [], immediate = false }: SplitTextProps) {
   const reduce = useReduce();
-  const Tag = motion[as] as typeof motion.h2;
+  const Tag = m[as] as typeof m.h2;
   const words = text.split(" ");
   const isAccent = (w: string) => accent.includes(w) || accent.includes(w.replace(/[.,!?]/g, ""));
   const space = (i: number) => (i < words.length - 1 ? " " : null);
@@ -49,13 +49,13 @@ export function SplitText({ text, className = "", delay = 0, as = "h2", accent =
         {words.map((w, i) => (
           <Fragment key={i}>
             <span className={WORD}>
-              <motion.span
+              <m.span
                 className={`inline-block ${isAccent(w) ? "italic text-gold" : ""}`}
                 variants={{ hidden: { y: "110%" }, show: { y: 0 } }}
                 transition={{ duration: 0.9, delay: delay + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
               >
                 {w}
-              </motion.span>
+              </m.span>
             </span>
             {space(i)}
           </Fragment>

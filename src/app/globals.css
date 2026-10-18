@@ -43,7 +43,10 @@ html {
   background: var(--color-night);
 }
 
+a, button, [role="button"], input, summary { touch-action: manipulation; }
+
 body {
+  -webkit-tap-highlight-color: transparent;
   font-family: var(--font-sans);
   color: var(--color-ink);
   background: var(--color-paper);
@@ -70,7 +73,8 @@ html.a11y-vision body { letter-spacing: 0.02em; }
 }
 
 @utility section-y {
-  padding-block: 72px;
+  padding-block: 56px;
+  @media (min-width: 640px) { padding-block: 80px; }
   @media (min-width: 1024px) { padding-block: 128px; }
 }
 
@@ -82,9 +86,9 @@ html.a11y-vision body { letter-spacing: 0.02em; }
   font-variant-numeric: lining-nums;
 }
 
-@utility display-xl { font-size: clamp(3.6rem, 9vw, 8.5rem); }
-@utility display-lg { font-size: clamp(2.7rem, 6.4vw, 5.5rem); }
-@utility display-md { font-size: clamp(2rem, 4.4vw, 3.5rem); }
+@utility display-xl { font-size: clamp(3.1rem, 9vw, 8.5rem); }
+@utility display-lg { font-size: clamp(2.3rem, 6.4vw, 5.5rem); }
+@utility display-md { font-size: clamp(1.75rem, 4.4vw, 3.5rem); }
 
 @utility eyebrow {
   font-size: 0.7rem;
@@ -109,9 +113,18 @@ html.a11y-vision body { letter-spacing: 0.02em; }
 }
 
 @utility glass {
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(255, 255, 255, 0.09);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(14px);
+  @media (min-width: 768px) {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(14px);
+  }
+}
+
+/* Нижние секции отрисовываются лениво (экономит CPU/GPU на телефоне) */
+@utility cv {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 @utility no-scrollbar {

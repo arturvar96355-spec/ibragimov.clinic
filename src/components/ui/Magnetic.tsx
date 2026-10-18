@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "motion/react";
+import { useMotionValue, useSpring } from "motion/react";
+import * as m from "motion/react-m";
 import { useReduce } from "@/lib/useReduce";
 import type { ReactNode } from "react";
 
@@ -13,7 +14,7 @@ export function Magnetic({ children, strength = 0.25, className }: { children: R
   const sy = useSpring(y, { stiffness: 220, damping: 18 });
   if (reduce) return <div className={className}>{children}</div>;
   return (
-    <motion.div
+    <m.div
       className={className}
       style={{ x: sx, y: sy }}
       onPointerMove={(e) => {
@@ -25,6 +26,6 @@ export function Magnetic({ children, strength = 0.25, className }: { children: R
       onPointerLeave={() => { x.set(0); y.set(0); }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

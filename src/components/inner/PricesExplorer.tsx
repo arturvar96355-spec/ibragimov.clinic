@@ -28,7 +28,7 @@ export function PricesExplorer() {
 
   return (
     <div className="container-x section-y">
-      <div className="sticky top-3 z-20 mb-14 grid gap-3 rounded-[28px] border border-line bg-paper/90 p-3 backdrop-blur-xl lg:flex lg:items-center">
+      <div className="sticky top-3 z-20 mb-14 grid gap-3 rounded-[28px] border border-line bg-paper p-3 lg:bg-paper/90 lg:backdrop-blur-xl lg:flex lg:items-center">
         <label className="flex min-w-0 items-center gap-3 rounded-full bg-white px-5 py-3 lg:w-80">
           <Search size={16} className="shrink-0 text-brand" />
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Найти услугу" aria-label="Найти услугу" className="min-w-0 flex-1 bg-transparent text-sm outline-none" />

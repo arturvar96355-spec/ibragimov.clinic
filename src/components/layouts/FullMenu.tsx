@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { X } from "lucide-react";
@@ -51,7 +52,7 @@ export function FullMenu({ open, onClose }: { open: boolean; onClose: () => void
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           ref={panel}
           id="site-menu"
           role="dialog"
@@ -72,16 +73,16 @@ export function FullMenu({ open, onClose }: { open: boolean; onClose: () => void
               <nav aria-label="Разделы">
                 <ul className="grid gap-1">
                   {links.map((n, i) => (
-                    <motion.li key={n.href} initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 + i * 0.06, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+                    <m.li key={n.href} initial={{ y: 60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 + i * 0.06, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
                       <Link href={n.href} className="group flex items-baseline gap-4 py-1">
                         <span className="eyebrow w-7 !text-[10px] opacity-70">{String(i + 1).padStart(2, "0")}</span>
                         <span className={`display text-[clamp(2.4rem,7vw,5.5rem)] transition-all duration-300 group-hover:translate-x-3 group-hover:italic group-hover:text-gold ${pathname === n.href ? "italic text-gold" : ""}`}>{n.label}</span>
                       </Link>
-                    </motion.li>
+                    </m.li>
                   ))}
                 </ul>
               </nav>
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="grid content-start gap-10">
+              <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="grid content-start gap-10">
                 <div>
                   <p className="eyebrow mb-5">Направления</p>
                   <ul className="columns-1 gap-8 text-sm sm:columns-2">
@@ -99,10 +100,10 @@ export function FullMenu({ open, onClose }: { open: boolean; onClose: () => void
                   <p className="text-paper/70">{site.hoursDays}: {site.hours}</p>
                   <div className="mt-3"><BookButton onOpen={onClose}>Записаться на прием</BookButton></div>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );
