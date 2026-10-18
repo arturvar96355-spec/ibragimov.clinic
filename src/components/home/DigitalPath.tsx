@@ -39,8 +39,9 @@ export function DigitalPath() {
 
   const head = (
     <div className="container-x mb-10">
-      <p className="eyebrow mb-5">Как устроено лечение</p>
-      <SplitText text="Цифровой путь от скана до коронки" accent={["цифровой", "Цифровой"]} className="display display-lg max-w-4xl" />
+      <p className="eyebrow mb-5">Технологии клиники</p>
+      <SplitText text="Цифровые технологии на каждом этапе" accent={["Цифровые"]} className="display display-lg max-w-4xl" />
+      <p className="mt-5 max-w-xl text-sm text-paper/70">Оборудование клиники и этапы лечения зависят от клинической ситуации; план назначает врач.</p>
     </div>
   );
 
@@ -48,7 +49,7 @@ export function DigitalPath() {
     return (
       <section className="bg-night text-paper section-y">
         {head}
-        <div className="no-scrollbar flex gap-4 overflow-x-auto px-5 pb-4">{processSteps.map((s, i) => <Card key={s.tag} s={s} i={i} />)}</div>
+        <div tabIndex={0} role="region" aria-label="Этапы лечения: прокрутите по горизонтали" className="no-scrollbar flex gap-4 overflow-x-auto px-5 pb-4">{processSteps.map((s, i) => <Card key={s.tag} s={s} i={i} />)}</div>
       </section>
     );
   }

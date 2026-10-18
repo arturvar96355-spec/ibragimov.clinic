@@ -15,7 +15,7 @@ export function BoneScene({ p, className = "" }: { p: MotionValue<number>; class
   const glow = useTransform(p, [0.74, 0.9], [0, 1]);
 
   return (
-    <svg viewBox="0 0 600 520" role="img" aria-label="Схема: классический имплант и базальный подход при разном объеме кости" className={className}>
+    <svg viewBox="0 0 600 520" aria-hidden="true" className={className}>
       <defs>
         <linearGradient id="bs-bone" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#efe4cc" />

@@ -51,6 +51,11 @@ body {
   overflow-x: clip;
 }
 
+a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible, [role="button"]:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
 ::selection { background: var(--color-gold); color: var(--color-night); }
 
 html.a11y-vision { font-size: 118%; --color-muted: #2c3533; }

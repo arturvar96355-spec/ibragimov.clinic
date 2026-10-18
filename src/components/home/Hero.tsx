@@ -40,7 +40,7 @@ export function Hero() {
           <p style={{ "--d": "0.1s" } as React.CSSProperties} className="eyebrow fade-up flex items-center gap-3">
             <span className="h-px w-10 bg-gold" /> Стоматология · Москва · ЮЗАО
           </p>
-          <SplitText as="h1" immediate text="Улыбка за один прием" accent={["один"]} delay={0.1} className="display display-xl !leading-[0.92]" />
+          <SplitText as="h1" immediate text="Возвращаем улыбку бережно" accent={["бережно"]} delay={0.1} className="display !text-[clamp(3.4rem,6.2vw,6.4rem)] !leading-[0.95]" />
           <p style={{ "--d": "0.45s" } as React.CSSProperties} className="fade-up max-w-lg text-base leading-relaxed text-paper/75 sm:text-lg">
             {site.brandFull}. Восстанавливаем зубы, в том числе при недостатке костной ткани, и лечим под микроскопом.
           </p>
@@ -66,7 +66,7 @@ export function Hero() {
             <p className="mt-1 text-xs text-paper/65">{f.v}</p>
           </div>
         ))}
-        <p className="text-[11px] text-paper/45 sm:col-span-3">*при прохождении первичной гигиены полости рта</p>
+        <p className="text-[11px] text-paper/70 sm:col-span-3">*при прохождении первичной гигиены полости рта. Имеются противопоказания, необходима консультация специалиста.</p>
       </div>
       <a href="#story" aria-label="Листайте вниз" className="absolute bottom-6 right-6 hidden size-12 animate-float place-items-center rounded-full border border-paper/25 text-gold lg:grid"><ArrowDown size={18} /></a>
     </section>

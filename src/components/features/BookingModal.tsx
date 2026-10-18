@@ -22,8 +22,12 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const d = ref.current;
     if (!d) return;
-    if (state.open && !d.open) d.showModal();
+    if (state.open && !d.open) {
+      d.showModal();
+      document.body.style.overflow = "hidden";
+    }
     if (!state.open && d.open) d.close();
+    if (!state.open) document.body.style.overflow = "";
   }, [state.open]);
 
   return (
@@ -31,6 +35,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
       {children}
       <dialog
         ref={ref}
+        aria-labelledby="booking-title"
         onClose={close}
         onClick={(e) => e.target === ref.current && close()}
         className="m-auto w-[calc(100%-32px)] max-w-md rounded-[32px] bg-paper p-0 shadow-soft backdrop:bg-night/80 backdrop:backdrop-blur-md"
@@ -41,7 +46,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
               <X size={18} />
             </button>
             <p className="eyebrow mb-2">Ibragimov clinic</p>
-            <h2 className="display mb-2 pr-10 text-4xl">Запись на прием</h2>
+            <h2 id="booking-title" className="display mb-2 pr-10 text-4xl">Запись на прием</h2>
             {state.context && <p className="mb-5 text-sm text-muted">{state.context}</p>}
             {!state.context && <div className="mb-5" />}
             <LeadForm context={state.context} />
@@ -52,10 +57,10 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function BookButton({ children = "Записаться", context, variant = "gold", className = "" }: { children?: ReactNode; context?: string; variant?: Variant; className?: string }) {
+export function BookButton({ children = "Записаться", context, variant = "gold", className = "", onOpen }: { children?: ReactNode; context?: string; variant?: Variant; className?: string; onOpen?: () => void }) {
   const { open } = useBooking();
   return (
-    <button type="button" onClick={() => open(context)} className={buttonClass(variant, className)}>
+    <button type="button" onClick={() => { onOpen?.(); open(context); }} className={buttonClass(variant, className)}>
       {children}
       <Arrow dark={variant === "gold" || variant === "light"} />
     </button>

@@ -33,11 +33,12 @@ export function Footer() {
           <div className="flex gap-4"><a href={site.social.vk} className="transition hover:text-gold">ВКонтакте</a><a href={site.social.whatsapp} className="transition hover:text-gold">WhatsApp</a></div>
           <VisionToggle />
         </div>
-        <p className="text-xs font-semibold text-paper/85">Имеются противопоказания, необходима консультация специалиста.</p>
-        <p className="mt-2 max-w-4xl text-[11px] leading-relaxed text-paper/45">
+        <p className="text-xs text-paper/70">ИНН: {site.legal.inn} · ОГРН: {site.legal.ogrn} · Лицензия №: {site.legal.license}</p>
+        <p className="mt-2 text-xs font-semibold text-paper/90">Имеются противопоказания, необходима консультация специалиста.</p>
+        <p className="mt-2 max-w-4xl text-[11px] leading-relaxed text-paper/70">
           *Обращаем Ваше внимание на то, что данный интернет-сайт носит исключительно информационный характер и ни при каких условиях не является публичной офертой, определяемой положениями Статьи 437 Гражданского кодекса Российской Федерации.
         </p>
-        <p className="mt-2 text-[11px] text-paper/40">Демонстрационная версия сайта. Фото, отзывы и часть данных — временные.</p>
+        <p className="mt-2 text-[11px] text-paper/70">Демонстрационная версия сайта. Фото, отзывы и часть данных — временные.</p>
       </div>
       <p aria-hidden className="display pointer-events-none mt-6 select-none whitespace-nowrap text-center text-[clamp(4rem,19vw,19rem)] leading-[0.8] text-transparent [-webkit-text-stroke:1px_rgba(201,164,92,0.35)]">Ibragimov</p>
     </footer>

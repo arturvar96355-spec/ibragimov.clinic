@@ -21,7 +21,7 @@ export function PriceTiles() {
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6">
           <div>
             <p className="eyebrow mb-5 !text-brand">Прозрачные цены</p>
-            <SplitText text="Цены без сюрпризов" accent={["сюрпризов"]} className="display display-lg" />
+            <SplitText text="Стартовые цены открыто" accent={["открыто"]} className="display display-lg" />
           </div>
           <Link href="/prices/" className={buttonClass("dark")}>Весь прайс<Arrow dark={false} /></Link>
         </div>

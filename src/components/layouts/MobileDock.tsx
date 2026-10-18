@@ -5,7 +5,7 @@ import { MessageCircle, Phone, Sparkles } from "lucide-react";
 import { useBooking } from "@/components/features/BookingModal";
 import { site } from "@/lib/content";
 
-const item = "flex flex-1 flex-col items-center gap-1 rounded-full py-2 text-[9px] font-bold uppercase tracking-wide text-paper";
+const item = "flex flex-1 flex-col items-center gap-1 rounded-full py-2 text-[10px] font-bold uppercase tracking-wide text-paper";
 
 /** Нижний «док» на мобильном: главные действия всегда под рукой. */
 export function MobileDock() {

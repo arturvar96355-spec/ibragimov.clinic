@@ -1,7 +1,7 @@
 // scrape-assets.mjs — выгрузка картинок, текстов и эталонных скриншотов с https://ibic.clinic
-// Запуск (на машине с доступом к сайту):
+// Запуск (на машине с доступом к сайту), из корня проекта:
 //   npm i -D playwright sharp && npx playwright install chromium
-//   node scrape-assets.mjs
+//   node scripts/scrape-assets.mjs
 // Результат: ./scraped/{raw,optimized,screens,text,icons}/ + manifest.json + manifest.csv
 
 import { chromium } from 'playwright';

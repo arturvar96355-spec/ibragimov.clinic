@@ -1,6 +1,7 @@
 "use client";
 
 import { animate } from "motion/react";
+import { useReduce } from "@/lib/useReduce";
 import { useEffect, useRef, useState } from "react";
 import { Odontogram } from "@/components/art/Odontogram";
 import { SplitText } from "@/components/ui/SplitText";
@@ -14,14 +15,21 @@ const METHODS = {
 type Method = keyof typeof METHODS;
 
 function AnimatedPrice({ value }: { value: number }) {
+  const reduce = useReduce();
   const [shown, setShown] = useState(value);
   const prev = useRef(value);
   useEffect(() => {
+    if (reduce) { prev.current = value; return; }
     const c = animate(prev.current, value, { duration: 0.7, ease: [0.22, 1, 0.36, 1], onUpdate: (v) => setShown(Math.round(v)) });
     prev.current = value;
     return () => c.stop();
-  }, [value]);
-  return <>{formatPrice(shown)}</>;
+  }, [value, reduce]);
+  return (
+    <>
+      <span aria-hidden>{formatPrice(reduce ? value : shown)}</span>
+      <span className="sr-only" aria-live="polite">{formatPrice(value)}</span>
+    </>
+  );
 }
 
 export function PlanBuilder() {
@@ -44,17 +52,17 @@ export function PlanBuilder() {
         <SplitText text="Соберите план лечения за минуту" accent={["минуту"]} className="display display-lg mb-12 max-w-4xl" />
         <div className="grid items-start gap-6 lg:grid-cols-[1fr_1fr]">
           <div className="glass rounded-[32px] p-4 sm:p-8">
-            <p className="mb-2 text-center text-xs text-paper/60">Нажмите на зубы, которых нет</p>
+            <p className="mb-2 text-center text-xs text-paper/75">Нажмите на зубы, которых нет (с клавиатуры: Tab и Enter)</p>
             <Odontogram selected={selected} onToggle={toggle} className="mx-auto w-full max-w-[460px]" />
-            <div className="mt-2 flex items-center justify-between text-xs text-paper/60">
+            <div className="mt-2 flex items-center justify-between text-xs text-paper/75">
               <span>Отмечено: <b className="text-gold">{n}</b></span>
               <button type="button" onClick={() => setSelected([])} className="underline transition hover:text-gold">Сбросить</button>
             </div>
           </div>
           <div className="grid gap-5 rounded-[32px] bg-paper p-6 text-ink sm:p-9">
-            <div role="radiogroup" aria-label="Метод" className="grid grid-cols-2 gap-1.5 rounded-full bg-sand/70 p-1.5">
+            <div role="group" aria-label="Метод имплантации" className="grid grid-cols-2 gap-1.5 rounded-full bg-sand/70 p-1.5">
               {(Object.keys(METHODS) as Method[]).map((k) => (
-                <button key={k} role="radio" aria-checked={method === k} onClick={() => setMethod(k)} className={`rounded-full py-3 text-sm font-bold transition ${method === k ? "bg-night text-paper shadow-soft" : "text-night/70 hover:text-night"}`}>{METHODS[k].label}</button>
+                <button key={k} type="button" aria-pressed={method === k} onClick={() => setMethod(k)} className={`rounded-full py-3 text-sm font-bold transition ${method === k ? "bg-night text-paper shadow-soft" : "text-night/70 hover:text-night"}`}>{METHODS[k].label}</button>
               ))}
             </div>
             <dl className="grid gap-3 text-sm">
@@ -68,11 +76,15 @@ export function PlanBuilder() {
               )}
             </dl>
             <div>
-              <p className="text-xs text-muted">Ориентировочно</p>
-              <p className="display text-6xl text-brand sm:text-7xl" aria-live="polite"><AnimatedPrice value={total} /></p>
-              <p className="mt-2 text-xs leading-relaxed text-muted">Расчет по стартовым ценам прайса. Метод и итоговую стоимость определяет врач после осмотра и КТ.</p>
+              <p className="text-xs text-muted">Минимальная стоимость</p>
+              {n > 0 ? (
+                <p className="display text-6xl text-brand sm:text-7xl"><AnimatedPrice value={total} /></p>
+              ) : (
+                <p className="display text-4xl text-muted sm:text-5xl">Отметьте зубы на схеме</p>
+              )}
+              <p className="mt-2 text-xs leading-relaxed text-muted">Расчет по стартовым ценам прайса («от»), без удаления зубов и других работ. Синус-лифтинг считается один раз. Метод и итоговую стоимость определяет врач после осмотра и КТ.</p>
             </div>
-            <div><BookButton context={`План: ${m.label.toLowerCase()} имплантация, зубов: ${n}`}>Обсудить мой план</BookButton></div>
+            <div>{n > 0 ? <BookButton context={`План: ${m.label.toLowerCase()} имплантация, зубов: ${n}`}>Обсудить мой план</BookButton> : <BookButton>Записаться на консультацию</BookButton>}</div>
           </div>
         </div>
       </div>

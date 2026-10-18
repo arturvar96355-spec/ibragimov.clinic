@@ -15,7 +15,7 @@
 src/
 ├── app/            # страницы по карте сайта (URL как на ibic.clinic)
 ├── components/
-│   ├── ui/         # Button, Accordion, Media, Reveal, SplitText, CountUp, Marquee, Magnetic
+│   ├── ui/         # Button, Media, Reveal, SplitText, CountUp, Marquee, Magnetic
 │   ├── art/        # JawHero, BoneScene, Odontogram (SVG-иллюстрации)
 │   ├── home/       # секции главной (Hero, BoneStory, Navigator, PlanBuilder, DigitalPath...)
 │   ├── inner/      # PageHero, Reasons, ServicesIndex, ServiceRail, PricesExplorer, Timeline

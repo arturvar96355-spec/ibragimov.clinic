@@ -14,6 +14,13 @@ const pt = (th: number) => {
   return { x: 240 + A * Math.cos(r), y: 238 - B * Math.sin(r) };
 };
 
+/** Номер по системе FDI: верхняя 18…11, 21…28; нижняя 48…41, 31…38 (слева направо глазами врача). */
+const fdi = (id: number) => {
+  const i = id % 16;
+  const upper = id < 16;
+  return i < 8 ? (upper ? 18 : 48) - i : (upper ? 21 : 31) + (i - 8);
+};
+
 function arch(offset: number): Spot[] {
   const pts = Array.from({ length: SAMPLES + 1 }, (_, k) => pt(190 - (200 * k) / SAMPLES));
   const cum = [0];
@@ -41,12 +48,12 @@ function Tooth({ s, on, onToggle }: { s: Spot; on: boolean; onToggle: (id: numbe
       role="button"
       tabIndex={0}
       aria-pressed={on}
-      aria-label={`Зуб ${s.id + 1}${on ? ": отсутствует" : ""}`}
+      aria-label={`Зуб ${fdi(s.id)}${on ? ": отсутствует" : ""}`}
       onClick={() => onToggle(s.id)}
       onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), onToggle(s.id))}
       className="group cursor-pointer outline-none"
     >
-      <rect x={-s.w / 2} y={-s.h / 2} width={s.w} height={s.h} rx="9" className={`origin-center transition duration-300 [transform-box:fill-box] group-hover:scale-110 group-focus-visible:stroke-gold ${on ? "fill-gold/15 stroke-gold" : "fill-ivory stroke-sand"}`} strokeWidth={on ? 2 : 1.4} strokeDasharray={on ? "4 4" : undefined} />
+      <rect x={-s.w / 2} y={-s.h / 2} width={s.w} height={s.h} rx="9" className={`origin-center transition duration-300 [transform-box:fill-box] group-hover:scale-110 group-focus-visible:stroke-brand group-focus-visible:[stroke-width:3] ${on ? "fill-gold/15 stroke-gold" : "fill-ivory stroke-sand"}`} strokeWidth={on ? 2 : 1.4} strokeDasharray={on ? "4 4" : undefined} />
       {on && <circle r="4.5" fill="#c9a45c" />}
     </g>
   );

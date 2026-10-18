@@ -13,7 +13,7 @@ import { FinalCta } from "@/components/home/FinalCta";
 
 export const metadata: Metadata = {
   title: "Стоматология в Москве, ЮЗАО: базальная имплантация — Ibragimov Clinic",
-  description: "Ibragimov Clinic: имплантация зубов за один прием, лечение под микроскопом, ортодонтия. Москва, ул. Гарибальди, 11. Запишитесь на консультацию.",
+  description: "Ibragimov Clinic: имплантация зубов, лечение под микроскопом, ортодонтия. Москва, ул. Гарибальди, 11. Запишитесь на консультацию.",
 };
 
 export default function Home() {

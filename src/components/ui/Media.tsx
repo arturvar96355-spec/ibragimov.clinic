@@ -26,7 +26,7 @@ export function Media({ img, className = "", tone = "night", sizes = "100vw", pr
   }
   const dark = tone === "night";
   return (
-    <div role="img" aria-label={img.alt} className={`relative overflow-hidden bg-gradient-to-br ${tones[tone]} ${className}`}>
+    <div aria-hidden="true" className={`relative overflow-hidden bg-gradient-to-br ${tones[tone]} ${className}`}>
       <svg aria-hidden className="absolute inset-0 h-full w-full opacity-40" viewBox="0 0 400 300" preserveAspectRatio="none">
         {[0, 1, 2, 3].map((i) => (
           <path key={i} d={`M-20 ${200 + i * 22} C 80 ${130 + i * 20}, 160 ${270 + i * 8}, 260 ${190 + i * 14} S 380 ${130 + i * 12}, 430 ${180 + i * 18}`} fill="none" stroke={dark ? "#c9a45c" : "#1d685d"} strokeWidth="0.9" />
