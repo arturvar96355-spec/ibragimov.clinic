@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { PromoHero } from "@/components/features/PromoSlider";
-import { IntroBlock } from "@/components/features/IntroBlock";
-import { ServicesGrid } from "@/components/features/ServicesGrid";
-import { AboutGallery } from "@/components/features/AboutGallery";
-import { Advantages } from "@/components/features/Advantages";
-import { DoctorsSection } from "@/components/features/DoctorsSection";
-import { EquipmentSlider } from "@/components/features/EquipmentSlider";
-import { ReviewsSection } from "@/components/features/ReviewsSection";
-import { CtaCallback } from "@/components/features/CtaCallback";
-import { ContactsBlock } from "@/components/features/ContactsBlock";
+import { Hero } from "@/components/home/Hero";
+import { Ticker } from "@/components/home/Ticker";
+import { BoneStory } from "@/components/home/BoneStory";
+import { Navigator } from "@/components/home/Navigator";
+import { PlanBuilder } from "@/components/home/PlanBuilder";
+import { DigitalPath } from "@/components/home/DigitalPath";
+import { DoctorChapter } from "@/components/home/DoctorChapter";
+import { EquipmentBento } from "@/components/home/EquipmentBento";
+import { PriceTiles } from "@/components/home/PriceTiles";
+import { Proof } from "@/components/home/Proof";
+import { FinalCta } from "@/components/home/FinalCta";
 
 export const metadata: Metadata = {
   title: "Стоматология в Москве, ЮЗАО: базальная имплантация — Ibragimov Clinic",
@@ -18,16 +19,17 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <PromoHero />
-      <IntroBlock />
-      <ServicesGrid />
-      <AboutGallery />
-      <Advantages />
-      <DoctorsSection />
-      <EquipmentSlider />
-      <ReviewsSection />
-      <CtaCallback />
-      <ContactsBlock />
+      <Hero />
+      <Ticker />
+      <BoneStory />
+      <Navigator />
+      <PlanBuilder />
+      <DigitalPath />
+      <DoctorChapter />
+      <EquipmentBento />
+      <PriceTiles />
+      <Proof />
+      <FinalCta />
     </>
   );
 }

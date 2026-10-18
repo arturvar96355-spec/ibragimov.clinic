@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Media } from "@/components/ui/Media";
-import { Accordion } from "@/components/ui/Accordion";
-import { Breadcrumbs } from "@/components/layouts/Breadcrumbs";
+import { CountUp } from "@/components/ui/CountUp";
+import { Reveal } from "@/components/ui/Reveal";
 import { BookButton } from "@/components/features/BookingModal";
-import { ReviewsSection } from "@/components/features/ReviewsSection";
-import { CtaCallback } from "@/components/features/CtaCallback";
+import { PageHero } from "@/components/inner/PageHero";
+import { Timeline } from "@/components/inner/Timeline";
+import { FinalCta } from "@/components/home/FinalCta";
+import { Proof } from "@/components/home/Proof";
 import { doctors } from "@/lib/content";
 
 export const generateStaticParams = () => doctors.map((d) => ({ slug: d.slug }));
@@ -22,30 +24,43 @@ export default async function DoctorPage({ params }: { params: Promise<{ slug: s
   if (!d) notFound();
   return (
     <>
-      <Breadcrumbs items={[{ label: "Врачи", href: "/doctors/" }, { label: d.name }]} />
-      <section className="container-x pt-4">
-        <div className="grid overflow-hidden rounded-card bg-white shadow-soft lg:grid-cols-2">
-          <Media img={d.photo} tone="sand" className="aspect-[4/3] lg:aspect-auto lg:min-h-[480px]" priority />
-          <div className="flex flex-col items-start justify-center gap-5 p-7 sm:p-12">
-            <h1 className="text-3xl font-bold leading-tight text-brand sm:text-4xl">{d.name}</h1>
-            <p className="w-full border-y border-line py-3"><b>Стаж:</b> {d.experience}</p>
-            <p className="w-full border-b border-line pb-3">{d.role}.</p>
-            <BookButton context={d.name}>Записаться на прием</BookButton>
-          </div>
+      <PageHero
+        crumbs={[{ label: "Врачи", href: "/doctors/" }, { label: d.name }]}
+        eyebrow={d.role}
+        title={d.name}
+        lead={<p>Стаж: {d.experience}. Лечение под микроскопом и современное цифровое оборудование.</p>}
+        aside={<Media img={d.photo} tone="night" className="hidden aspect-[4/5] max-w-sm justify-self-end rounded-t-full border border-gold/30 lg:block" />}
+      >
+        <BookButton context={d.name}>Записаться на прием</BookButton>
+      </PageHero>
+
+      <section className="section-y bg-paper">
+        <div className="container-x grid gap-16 lg:grid-cols-[1fr_1.2fr] lg:gap-24">
+          <Reveal className="grid content-start gap-8">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="rounded-[28px] bg-night p-6 text-paper"><CountUp to={21} className="display text-7xl text-gold" /><p className="mt-1 text-xs text-paper/65">года практики</p></div>
+              <div className="rounded-[28px] bg-ivory p-6"><CountUp to={3} className="display text-7xl text-brand" /><p className="mt-1 text-xs text-muted">вида имплантации: базальная, классическая, скуловая</p></div>
+            </div>
+            <div>
+              <h2 className="display display-md mb-5">Основное образование</h2>
+              <Timeline items={d.education} />
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2 className="display display-md mb-6">Виды лечения</h2>
+            <ul className="divide-y divide-line border-y border-line">
+              {d.treatments.map((t, i) => (
+                <li key={t} className="group flex items-baseline gap-5 py-5 transition-colors hover:bg-white sm:px-3">
+                  <span className="display text-3xl italic text-gold">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="leading-relaxed transition-transform duration-300 group-hover:translate-x-2">{t}</span>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
       </section>
-      <section className="container-x py-14 lg:py-20">
-        <h2 className="h-section mb-6">Информация</h2>
-        <Accordion
-          defaultOpen="treatments"
-          items={[
-            { id: "treatments", head: <b>Виды лечения</b>, body: <ul className="grid gap-3">{d.treatments.map((t) => <li key={t} className="flex gap-3"><span className="mt-2 size-1.5 shrink-0 rounded-full bg-brand" />{t}</li>)}</ul> },
-            { id: "education", head: <b>Основное образование</b>, body: <ol className="grid gap-4">{d.education.map((e, i) => <li key={e} className="flex items-start gap-4"><span className="grid size-10 shrink-0 place-items-center rounded-full bg-brand text-xs font-bold text-white">{String(i + 1).padStart(2, "0")}</span><p className="pt-2">{e}</p></li>)}</ol> },
-          ]}
-        />
-      </section>
-      <ReviewsSection />
-      <CtaCallback context={d.name} />
+      <Proof />
+      <FinalCta context={d.name} />
     </>
   );
 }

@@ -4,6 +4,18 @@ import "./globals.css";
 import { BookingProvider } from "@/components/features/BookingModal";
 import { Header } from "@/components/layouts/Header";
 import { Footer } from "@/components/layouts/Footer";
+import { MobileDock } from "@/components/layouts/MobileDock";
+
+const cormorant = localFont({
+  src: [
+    { path: "./fonts/cormorant-cyrillic-normal.woff2", style: "normal", weight: "300 700" },
+    { path: "./fonts/cormorant-latin-normal.woff2", style: "normal", weight: "300 700" },
+    { path: "./fonts/cormorant-cyrillic-italic.woff2", style: "italic", weight: "300 700" },
+    { path: "./fonts/cormorant-latin-italic.woff2", style: "italic", weight: "300 700" },
+  ],
+  variable: "--font-cormorant",
+  display: "swap",
+});
 
 const montserrat = localFont({
   src: [
@@ -23,12 +35,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru" className={montserrat.variable}>
+    <html lang="ru" className={`${montserrat.variable} ${cormorant.variable}`}>
       <body>
         <BookingProvider>
           <Header />
           <main>{children}</main>
           <Footer />
+          <MobileDock />
         </BookingProvider>
       </body>
     </html>

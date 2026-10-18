@@ -16,22 +16,13 @@ export function Accordion({ items, defaultOpen }: { items: Item[]; defaultOpen?:
       {items.map((it) => {
         const isOpen = open === it.id;
         return (
-          <li key={it.id} id={it.id} className="rounded-card bg-soft">
-            <button
-              type="button"
-              aria-expanded={isOpen}
-              onClick={() => setOpen(isOpen ? undefined : it.id)}
-              className="flex w-full items-center gap-4 p-4 text-left sm:p-5"
-            >
-              <span className="flex-1">{it.head}</span>
-              <span className={`grid size-9 shrink-0 place-items-center rounded-full bg-white text-brand transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}>
-                <Plus size={18} />
-              </span>
+          <li key={it.id} id={it.id} className={`rounded-[28px] border transition-colors duration-500 ${isOpen ? "border-night bg-night text-paper" : "border-line bg-white"}`}>
+            <button type="button" aria-expanded={isOpen} onClick={() => setOpen(isOpen ? undefined : it.id)} className="flex w-full items-center gap-4 p-5 text-left sm:p-7">
+              <span className="display flex-1 text-2xl sm:text-3xl">{it.head}</span>
+              <span className={`grid size-10 shrink-0 place-items-center rounded-full transition duration-500 ${isOpen ? "rotate-45 bg-gold text-night" : "bg-ivory text-brand"}`}><Plus size={18} /></span>
             </button>
-            <div className={`grid transition-all duration-300 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-              <div className="overflow-hidden">
-                <div className="px-4 pb-5 sm:px-5">{it.body}</div>
-              </div>
+            <div className={`grid transition-all duration-500 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+              <div className="overflow-hidden"><div className="px-5 pb-7 sm:px-7">{it.body}</div></div>
             </div>
           </li>
         );

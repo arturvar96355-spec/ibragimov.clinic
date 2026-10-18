@@ -11,7 +11,7 @@ export function VisionToggle() {
     setOn(next);
   };
   return (
-    <button type="button" onClick={toggle} aria-pressed={on} className="flex items-center gap-2 text-xs transition hover:text-brand">
+    <button type="button" onClick={toggle} aria-pressed={on} className="flex items-center gap-2 text-xs transition hover:text-gold">
       <Eye size={16} /> Версия для слабовидящих
     </button>
   );

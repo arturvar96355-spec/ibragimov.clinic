@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Breadcrumbs } from "@/components/layouts/Breadcrumbs";
-import { PricesExplorer } from "@/components/features/PricesExplorer";
-import { CtaCallback } from "@/components/features/CtaCallback";
+import { PageHero } from "@/components/inner/PageHero";
+import { PricesExplorer } from "@/components/inner/PricesExplorer";
+import { FinalCta } from "@/components/home/FinalCta";
 
 export const metadata: Metadata = {
   title: "Цены на стоматологические услуги в Москве — Ibragimov Clinic",
@@ -11,12 +11,9 @@ export const metadata: Metadata = {
 export default function PricesPage() {
   return (
     <>
-      <Breadcrumbs items={[{ label: "Цены" }]} />
-      <section className="container-x py-8 lg:py-12">
-        <h1 className="h-section mb-8 lg:text-5xl">Цены на услуги</h1>
-        <PricesExplorer />
-      </section>
-      <CtaCallback />
+      <PageHero crumbs={[{ label: "Цены" }]} eyebrow="Прозрачные цены" title="Цены на услуги" accent={["услуги"]} lead="Стартовые цены без скрытых платежей. Нажмите на услугу, чтобы записаться: точную стоимость назовет врач после осмотра." />
+      <PricesExplorer />
+      <FinalCta />
     </>
   );
 }

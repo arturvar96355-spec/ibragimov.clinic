@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Breadcrumbs } from "@/components/layouts/Breadcrumbs";
-import { MapStub } from "@/components/features/MapStub";
-import { ContactsBlock } from "@/components/features/ContactsBlock";
-import { Advantages } from "@/components/features/Advantages";
-import { CtaCallback } from "@/components/features/CtaCallback";
+import { PageHero } from "@/components/inner/PageHero";
+import { FinalCta } from "@/components/home/FinalCta";
+import { site } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Контакты стоматологии Ibragimov Clinic — Москва, ул. Гарибальди, 11",
@@ -13,14 +11,8 @@ export const metadata: Metadata = {
 export default function ContactsPage() {
   return (
     <>
-      <Breadcrumbs items={[{ label: "Контакты" }]} />
-      <section className="container-x pt-4">
-        <h1 className="h-section mb-6 lg:text-5xl">Контакты</h1>
-        <MapStub className="h-80 lg:h-[420px]" />
-      </section>
-      <ContactsBlock />
-      <Advantages />
-      <CtaCallback />
+      <PageHero crumbs={[{ label: "Контакты" }]} eyebrow="Как нас найти" title="Контакты" lead={<p>{site.addressCity}, {site.address}. {site.addressNote[0].toUpperCase() + site.addressNote.slice(1)}. Метро: {site.metro.join(", ")}.</p>} />
+      <FinalCta />
     </>
   );
 }

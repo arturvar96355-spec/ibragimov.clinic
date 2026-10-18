@@ -1,17 +1,31 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import type { ReactNode } from "react";
 
-type Variant = "dark" | "brand" | "outline" | "white";
+export type Variant = "gold" | "light" | "ghost" | "dark" | "brand";
 
 const styles: Record<Variant, string> = {
-  dark: "bg-ink text-white hover:bg-brand",
+  gold: "bg-gold text-night hover:bg-gold-soft",
+  light: "bg-paper text-night hover:bg-white",
+  ghost: "border border-white/30 text-white hover:bg-white/10",
+  dark: "bg-night text-paper hover:bg-brand",
   brand: "bg-brand text-white hover:bg-brand-dark",
-  outline: "border border-brand text-brand hover:bg-brand hover:text-white",
-  white: "bg-white text-ink hover:bg-brand-soft",
 };
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-ctl px-8 py-3.5 text-sm font-bold transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand";
+  "group inline-flex items-center justify-center gap-3 rounded-ctl py-3.5 pl-7 pr-3.5 text-sm font-bold tracking-wide transition-colors duration-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold";
+
+export function buttonClass(variant: Variant = "gold", className = "") {
+  return `${base} ${styles[variant]} ${className}`;
+}
+
+export function Arrow({ dark = true }: { dark?: boolean }) {
+  return (
+    <span className={`grid size-9 place-items-center rounded-full transition-transform duration-300 group-hover:rotate-45 ${dark ? "bg-night/10" : "bg-white/15"}`}>
+      <ArrowUpRight size={16} />
+    </span>
+  );
+}
 
 interface Props {
   variant?: Variant;
@@ -19,12 +33,9 @@ interface Props {
   children: ReactNode;
 }
 
-export function ButtonLink({ href, variant = "dark", className = "", children }: Props & { href: string }) {
-  const cls = `${base} ${styles[variant]} ${className}`;
-  if (href.startsWith("tel:") || href.startsWith("http")) return <a href={href} className={cls}>{children}</a>;
-  return <Link href={href} className={cls}>{children}</Link>;
-}
-
-export function buttonClass(variant: Variant = "dark", className = "") {
-  return `${base} ${styles[variant]} ${className}`;
+export function ButtonLink({ href, variant = "gold", className = "", children }: Props & { href: string }) {
+  const cls = buttonClass(variant, className);
+  const inner = <>{children}<Arrow dark={variant === "gold" || variant === "light"} /></>;
+  if (href.startsWith("tel:") || href.startsWith("http")) return <a href={href} className={cls}>{inner}</a>;
+  return <Link href={href} className={cls}>{inner}</Link>;
 }

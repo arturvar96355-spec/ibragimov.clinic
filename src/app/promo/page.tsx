@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Media } from "@/components/ui/Media";
-import { Breadcrumbs } from "@/components/layouts/Breadcrumbs";
+import { Reveal } from "@/components/ui/Reveal";
 import { BookButton } from "@/components/features/BookingModal";
-import { CtaCallback } from "@/components/features/CtaCallback";
+import { PageHero } from "@/components/inner/PageHero";
+import { FinalCta } from "@/components/home/FinalCta";
 import { promos } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -13,24 +13,25 @@ export const metadata: Metadata = {
 export default function PromoPage() {
   return (
     <>
-      <Breadcrumbs items={[{ label: "Акции" }]} />
-      <section className="container-x py-8 lg:py-12">
-        <h1 className="h-section mb-8 lg:text-5xl">Акции</h1>
-        <div className="grid gap-4 md:grid-cols-2">
+      <PageHero crumbs={[{ label: "Акции" }]} eyebrow="Предложения" title="Акции клиники" accent={["клиники"]} />
+      <section className="section-y bg-paper">
+        <div className="container-x grid gap-4">
           {promos.map((p) => (
-            <article key={p.id} className="overflow-hidden rounded-card bg-white shadow-soft">
-              <Media img={{ alt: p.title, placeholder: true }} className="aspect-[16/9]" />
-              <div className="grid gap-4 p-7">
-                <span className="w-fit rounded-ctl border border-brand px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-brand">{p.badge}</span>
-                <h2 className="text-2xl font-bold">{p.title}</h2>
-                <p className="text-xs text-muted">{p.note}</p>
-                <div><BookButton context={p.title}>Записаться</BookButton></div>
-              </div>
-            </article>
+            <Reveal key={p.id}>
+              <article className="grain relative grid gap-8 overflow-hidden rounded-[40px] bg-forest p-8 text-paper sm:p-14 lg:grid-cols-[1.4fr_1fr] lg:items-end">
+                <div aria-hidden className="absolute -right-16 -top-16 size-80 rounded-full bg-gold/25 blur-3xl" />
+                <div className="relative grid gap-5">
+                  <span className="eyebrow w-fit rounded-full border border-gold/50 px-4 py-1.5">{p.badge}</span>
+                  <h2 className="display display-lg">{p.title}</h2>
+                  <p className="text-xs text-paper/60">{p.note}</p>
+                </div>
+                <div className="relative lg:justify-self-end"><BookButton context={p.title}>Записаться</BookButton></div>
+              </article>
+            </Reveal>
           ))}
         </div>
       </section>
-      <CtaCallback />
+      <FinalCta />
     </>
   );
 }

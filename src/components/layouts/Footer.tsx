@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Calendar, Mail, MapPin } from "lucide-react";
 import { Logo } from "./Logo";
 import { VisionToggle } from "./VisionToggle";
 import { rootServices, site } from "@/lib/content";
@@ -7,39 +6,40 @@ import { rootServices, site } from "@/lib/content";
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="container-x pb-6">
-      <div className="overflow-hidden rounded-card bg-soft">
-        <div className="grid gap-10 p-7 sm:p-10 lg:grid-cols-2">
-          <div>
-            <h2 className="mb-5 text-2xl font-bold text-brand">Услуги</h2>
-            <ul className="grid gap-x-8 gap-y-2.5 text-sm sm:grid-cols-2">
-              {rootServices.map((s) => <li key={s.slug}><Link href={`/services/${s.slug}/`} className="transition hover:text-brand">{s.title}</Link></li>)}
-            </ul>
-            <Link href="/services/" className="mt-5 inline-block rounded-ctl border border-brand px-4 py-2 text-xs text-brand transition hover:bg-brand hover:text-white">Показать все</Link>
+    <footer className="grain relative overflow-hidden bg-night pb-28 pt-20 text-paper md:pb-10">
+      <div className="container-x relative z-10">
+        <div className="grid gap-12 border-b border-paper/15 pb-14 lg:grid-cols-[1.4fr_1fr_1fr]">
+          <div className="grid content-start gap-5">
+            <Logo />
+            <p className="max-w-sm text-sm leading-relaxed text-paper/60">{site.brandFull}. Стоматология в Москве, ЮЗАО.</p>
           </div>
-          <div className="grid gap-4 text-sm">
-            <h2 className="text-2xl font-bold text-brand">Контакты</h2>
-            <p className="flex items-center gap-2"><Calendar size={16} className="text-brand" /><i>{site.hoursDays}:</i> <b>{site.hours}</b></p>
-            <a href={site.phoneHref} className="text-3xl font-bold text-[#0b1142]">{site.phoneDisplay}</a>
-            <a href={`mailto:${site.email}`} className="flex items-center gap-2"><Mail size={16} className="text-brand" />{site.email}</a>
-            <p className="flex items-start gap-2"><MapPin size={16} className="mt-0.5 shrink-0 text-brand" />{site.addressCity}, {site.address}</p>
+          <div>
+            <p className="eyebrow mb-5">Услуги</p>
+            <ul className="grid gap-2.5 text-sm">
+              {rootServices.slice(0, 7).map((s) => <li key={s.slug}><Link href={`/services/${s.slug}/`} className="text-paper/75 transition hover:text-gold">{s.title}</Link></li>)}
+            </ul>
+          </div>
+          <div className="grid content-start gap-3 text-sm">
+            <p className="eyebrow mb-2">Контакты</p>
+            <a href={site.phoneHref} className="display text-3xl">{site.phoneDisplay}</a>
+            <a href={`mailto:${site.email}`} className="text-paper/75 transition hover:text-gold">{site.email}</a>
+            <p className="text-paper/60">{site.addressCity}<br />{site.address}, {site.addressNote}</p>
+            <p className="text-paper/60">{site.hoursDays}: {site.hours}</p>
           </div>
         </div>
-        <div className="flex flex-col gap-4 bg-gradient-to-b from-[#ececec] to-[#e2e2e2] p-6 text-xs sm:px-10 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-center gap-4"><Logo /><span className="text-muted">{year} © Ibragimov clinic</span></div>
-          <Link href="/privacy/" className="transition hover:text-brand">Политика конфиденциальности</Link>
-          <div className="flex items-center gap-2">Мы в соц.сетях:
-            <a href={site.social.vk} aria-label="ВКонтакте" className="grid size-8 place-items-center rounded-full bg-white text-[10px] font-black text-brand">VK</a>
-            <a href={site.social.whatsapp} aria-label="WhatsApp" className="grid size-8 place-items-center rounded-full bg-white text-[10px] font-black text-brand">WA</a>
-          </div>
+        <div className="flex flex-col gap-4 py-8 text-xs text-paper/60 lg:flex-row lg:items-center lg:justify-between">
+          <span>{year} © Ibragimov clinic</span>
+          <Link href="/privacy/" className="transition hover:text-gold">Политика конфиденциальности</Link>
+          <div className="flex gap-4"><a href={site.social.vk} className="transition hover:text-gold">ВКонтакте</a><a href={site.social.whatsapp} className="transition hover:text-gold">WhatsApp</a></div>
           <VisionToggle />
         </div>
+        <p className="text-xs font-semibold text-paper/85">Имеются противопоказания, необходима консультация специалиста.</p>
+        <p className="mt-2 max-w-4xl text-[11px] leading-relaxed text-paper/45">
+          *Обращаем Ваше внимание на то, что данный интернет-сайт носит исключительно информационный характер и ни при каких условиях не является публичной офертой, определяемой положениями Статьи 437 Гражданского кодекса Российской Федерации.
+        </p>
+        <p className="mt-2 text-[11px] text-paper/40">Демонстрационная версия сайта. Фото, отзывы и часть данных — временные.</p>
       </div>
-      <p className="mt-5 text-center text-xs font-semibold text-ink/80">Имеются противопоказания, необходима консультация специалиста.</p>
-      <p className="mx-auto mt-2 max-w-4xl text-center text-[11px] leading-relaxed text-muted">
-        *Обращаем Ваше внимание на то, что данный интернет-сайт носит исключительно информационный характер и ни при каких условиях не является публичной офертой, определяемой положениями Статьи 437 Гражданского кодекса Российской Федерации.
-      </p>
-      <p className="mt-3 text-center text-[11px] text-muted">Демонстрационная версия сайта. Фото, отзывы и часть данных — временные.</p>
+      <p aria-hidden className="display pointer-events-none mt-6 select-none whitespace-nowrap text-center text-[clamp(4rem,19vw,19rem)] leading-[0.8] text-transparent [-webkit-text-stroke:1px_rgba(201,164,92,0.35)]">Ibragimov</p>
     </footer>
   );
 }

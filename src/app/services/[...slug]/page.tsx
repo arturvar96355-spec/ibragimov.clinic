@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 import { Media } from "@/components/ui/Media";
-import { Breadcrumbs } from "@/components/layouts/Breadcrumbs";
+import { Reveal } from "@/components/ui/Reveal";
 import { BookButton } from "@/components/features/BookingModal";
-import { ServiceStickyNav } from "@/components/features/ServiceStickyNav";
-import { PriceTable } from "@/components/features/PriceTable";
-import { ServiceBlockView } from "@/components/features/ServiceBlocks";
-import { Advantages } from "@/components/features/Advantages";
-import { DoctorsSection } from "@/components/features/DoctorsSection";
-import { EquipmentSlider } from "@/components/features/EquipmentSlider";
-import { ReviewsSection } from "@/components/features/ReviewsSection";
-import { CtaCallback } from "@/components/features/CtaCallback";
-import { ContactsBlock } from "@/components/features/ContactsBlock";
-import { getPriceCategory, getService, services } from "@/lib/content";
+import { PageHero } from "@/components/inner/PageHero";
+import { ServiceRail } from "@/components/inner/ServiceRail";
+import { Timeline } from "@/components/inner/Timeline";
+import { rich } from "@/components/inner/RichText";
+import { Reasons } from "@/components/inner/Reasons";
+import { FinalCta } from "@/components/home/FinalCta";
+import { childrenOf, featuredPrice, formatPrice, getPriceCategory, getService, services } from "@/lib/content";
 
 type Params = { slug: string[] };
 
@@ -28,51 +27,92 @@ export default async function ServicePage({ params }: { params: Promise<Params> 
   if (!s) notFound();
   const parent = s.parent ? getService(s.parent) : undefined;
   const cat = getPriceCategory(s.priceCategory);
+  const kids = childrenOf(s.slug);
+  const min = featuredPrice(s);
+  const timeline = s.blocks?.find((b) => b.type === "timeline");
+  const related = (parent ? childrenOf(parent.slug).filter((c) => c.slug !== s.slug) : kids);
+
+  const rail = [
+    ...(cat ? [{ id: "prices", label: "Цены" }] : []),
+    { id: "about", label: "Описание" },
+    ...(timeline ? [{ id: "indications", label: timeline.title?.split(" ").slice(0, 2).join(" ") ?? "Показания" }] : []),
+    { id: "booking", label: "Запись" },
+  ];
 
   return (
     <>
-      <Breadcrumbs items={[{ label: "Услуги", href: "/services/" }, ...(parent ? [{ label: parent.title, href: `/services/${parent.slug}/` }] : []), { label: s.title }]} />
-      <section className="container-x pt-4">
-        <div className="grid overflow-hidden rounded-card bg-white shadow-soft lg:min-h-[460px] lg:grid-cols-2">
-          <Media img={{ alt: s.title, placeholder: true }} className="min-h-64 lg:min-h-full" />
-          <div className="flex flex-col items-start justify-center gap-5 p-7 sm:p-12">
-            <h1 className="text-3xl font-bold leading-tight text-brand sm:text-5xl">{s.title}</h1>
-            {(s.lead ?? [s.short]).map((p) => <p key={p} className="leading-relaxed">{p}</p>)}
-            <BookButton context={s.title}>Записаться</BookButton>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        crumbs={[{ label: "Услуги", href: "/services/" }, ...(parent ? [{ label: parent.title, href: `/services/${parent.slug}/` }] : []), { label: s.title }]}
+        eyebrow={parent ? parent.title : "Услуга клиники"}
+        title={s.title}
+        lead={<div className="grid gap-3">{(s.lead ?? [s.short]).map((p) => <p key={p}>{p}</p>)}</div>}
+        aside={<Media img={{ alt: s.title, placeholder: true }} tone="night" className="hidden aspect-[4/3] rounded-[40px] border border-gold/30 lg:block" />}
+      >
+        <BookButton context={s.title}>Записаться</BookButton>
+        {min && <span className="glass rounded-full px-5 py-3 text-sm"><span className="text-paper/60">Стоимость </span><b className="text-gold">{formatPrice(min)}</b></span>}
+      </PageHero>
 
-      <div className="container-x">
-        {cat && (
-          <section id="prices" className="pt-14 lg:pt-20">
-            <h2 className="h-section mb-4">Цены</h2>
-            <PriceTable category={cat} />
-          </section>
-        )}
-        <section id="description" className="pt-14 lg:pt-20">
-          {s.description && (
-            <div className="relative rounded-card bg-soft p-6 sm:p-10">
-              <h2 className="h-section mb-6">{s.title}</h2>
-              <div className="grid gap-4 lg:max-w-[60%]">
-                <h3 className="text-xl font-bold">{s.description.title}</h3>
-                {s.description.paragraphs.map((p) => <p key={p} className="leading-relaxed">{p}</p>)}
+      <div className="container-x section-y grid gap-12 lg:grid-cols-[15rem_1fr] lg:gap-20">
+        <ServiceRail items={rail} context={s.title} />
+        <div className="grid min-w-0 gap-20">
+          {cat && (
+            <section id="prices" aria-labelledby="prices-h">
+              <h2 id="prices-h" className="display display-md mb-8">Цены</h2>
+              <div className="grid gap-px overflow-hidden rounded-[28px] border border-line bg-line sm:grid-cols-2">
+                {cat.items.map((i) => (
+                  <div key={i.name} className="grid content-between gap-6 bg-white p-6 transition-colors duration-500 hover:bg-night hover:text-paper">
+                    <p className="text-sm font-semibold">{i.name}</p>
+                    <p className="display text-4xl text-brand sm:text-5xl">{formatPrice(i.price)}</p>
+                  </div>
+                ))}
               </div>
-              <Media img={{ alt: "", placeholder: true }} tone="sand" className="mt-6 aspect-[4/3] rounded-card lg:absolute lg:-right-4 lg:top-10 lg:mt-0 lg:w-[34%]" />
-            </div>
+              <p className="mt-3 text-xs text-muted">Указаны стартовые цены. Точная стоимость определяется после осмотра и диагностики.</p>
+            </section>
           )}
-          {s.blocks?.map((b, i) => <ServiceBlockView key={i} block={b} />)}
-        </section>
+
+          <section id="about" aria-labelledby="about-h" className="grid gap-8">
+            <h2 id="about-h" className="display display-md">{s.description?.title ?? s.title}</h2>
+            <div className="grid max-w-3xl gap-4 text-base leading-relaxed text-ink/85">
+              {(s.description?.paragraphs ?? s.lead ?? []).map((p) => <p key={p}>{rich(p)}</p>)}
+            </div>
+            {s.blocks?.filter((b) => b.type === "qualities" || b.type === "rich-text").map((b) => (
+              <Reveal key={b.title}>
+                <div className="grain relative overflow-hidden rounded-[32px] bg-night p-7 text-paper sm:p-10">
+                  <div aria-hidden className="absolute -right-10 -top-10 size-48 rounded-full bg-gold/20 blur-3xl" />
+                  <p className="eyebrow mb-3">Особенность</p>
+                  <h3 className="display display-md mb-4">{b.title}</h3>
+                  <div className="grid max-w-2xl gap-3 leading-relaxed text-paper/80">{b.paragraphs?.map((p) => <p key={p}>{p.replace(/\*\*/g, "")}</p>)}</div>
+                </div>
+              </Reveal>
+            ))}
+          </section>
+
+          {timeline && (
+            <section id="indications" aria-labelledby="ind-h">
+              <h2 id="ind-h" className="display display-md mb-10">{timeline.title}</h2>
+              <Timeline items={timeline.items ?? []} />
+            </section>
+          )}
+
+          {s.blocks?.filter((b) => b.type === "seo-text").map((b, i) => (
+            <div key={i} className="grid max-w-3xl gap-4 border-t border-line pt-10 text-sm leading-relaxed text-muted">{b.paragraphs?.map((p) => <p key={p}>{rich(p)}</p>)}</div>
+          ))}
+
+          {related.length > 0 && (
+            <section aria-labelledby="rel-h">
+              <h2 id="rel-h" className="display display-md mb-6">{parent ? "Другие направления раздела" : "Подуслуги"}</h2>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {related.map((c) => (
+                  <li key={c.slug}><Link href={`/services/${c.slug}/`} className="group flex items-center justify-between gap-4 rounded-[24px] border border-line bg-white p-5 transition hover:border-night hover:bg-night hover:text-paper"><span className="display text-2xl">{c.title}</span><ArrowUpRight className="shrink-0 text-gold transition group-hover:rotate-45" /></Link></li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
       </div>
 
-      <Advantages />
-      <DoctorsSection />
-      <EquipmentSlider />
-      <ReviewsSection />
-      <div id="booking"><CtaCallback context={s.title} /></div>
-      <ContactsBlock />
-      <div className="h-20" />
-      <ServiceStickyNav />
+      <Reasons />
+      <div id="booking"><FinalCta context={s.title} /></div>
     </>
   );
 }

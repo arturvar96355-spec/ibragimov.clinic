@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { X } from "lucide-react";
 import { LeadForm } from "./LeadForm";
-import { buttonClass } from "@/components/ui/Button";
+import { buttonClass, Arrow, type Variant } from "@/components/ui/Button";
 
 interface Ctx {
   open: (context?: string) => void;
@@ -33,14 +33,15 @@ export function BookingProvider({ children }: { children: ReactNode }) {
         ref={ref}
         onClose={close}
         onClick={(e) => e.target === ref.current && close()}
-        className="m-auto w-[calc(100%-32px)] max-w-md rounded-[28px] p-0 shadow-pop backdrop:bg-[#14194a]/70 backdrop:backdrop-blur-sm"
+        className="m-auto w-[calc(100%-32px)] max-w-md rounded-[32px] bg-paper p-0 shadow-soft backdrop:bg-night/80 backdrop:backdrop-blur-md"
       >
         {state.open && (
           <div className="relative p-7 sm:p-9">
-            <button aria-label="Закрыть" onClick={close} className="absolute right-4 top-4 grid size-10 place-items-center rounded-full bg-brand-soft text-brand transition hover:bg-brand hover:text-white">
+            <button aria-label="Закрыть" onClick={close} className="absolute right-4 top-4 grid size-10 place-items-center rounded-full bg-sand text-night transition hover:rotate-90 hover:bg-gold">
               <X size={18} />
             </button>
-            <h2 className="mb-1 pr-10 text-2xl font-bold text-brand">Запись на прием</h2>
+            <p className="eyebrow mb-2">Ibragimov clinic</p>
+            <h2 className="display mb-2 pr-10 text-4xl">Запись на прием</h2>
             {state.context && <p className="mb-5 text-sm text-muted">{state.context}</p>}
             {!state.context && <div className="mb-5" />}
             <LeadForm context={state.context} />
@@ -51,11 +52,12 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   );
 }
 
-export function BookButton({ children = "Записаться", context, variant = "dark", className = "" }: { children?: ReactNode; context?: string; variant?: "dark" | "brand" | "outline" | "white"; className?: string }) {
+export function BookButton({ children = "Записаться", context, variant = "gold", className = "" }: { children?: ReactNode; context?: string; variant?: Variant; className?: string }) {
   const { open } = useBooking();
   return (
     <button type="button" onClick={() => open(context)} className={buttonClass(variant, className)}>
       {children}
+      <Arrow dark={variant === "gold" || variant === "light"} />
     </button>
   );
 }

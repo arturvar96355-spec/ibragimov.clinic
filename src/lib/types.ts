@@ -31,7 +31,7 @@ export interface Service {
   slug: string;
   title: string;
   parent?: string;
-  priceFrom?: string;
+  featured?: string;
   short: string;
   lead?: string[];
   priceCategory?: string;
@@ -71,4 +71,19 @@ export interface Promo {
   badge: string;
   title: string;
   note: string;
+}
+
+export interface Situation {
+  id: string;
+  label: string;
+  service: string;
+  price: string;
+  answer: string;
+}
+
+export interface ProcessStep {
+  title: string;
+  tag: string;
+  equipment: string;
+  text: string;
 }
